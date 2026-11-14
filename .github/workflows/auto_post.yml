@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 # একসাথে দুটি রান চলবে না
 concurrency:
@@ -28,7 +29,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 17
     steps:
       - name: কোড ডাউনলোড
         uses: actions/checkout@v4
@@ -76,4 +77,15 @@ jobs:
               git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push && break
               sleep 5
             done
+          fi
+
+      - name: পরের রান চালু (বাটন দ্রুত সাড়া দেওয়ার জন্য নিরবচ্ছিন্ন শোনা)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODE: ${{ github.event.inputs.mode || 'run' }}
+        run: |
+          if [ "$MODE" = "run" ]; then
+            sleep 20
+            gh workflow run auto_post.yml -f mode=run || true
           fi
