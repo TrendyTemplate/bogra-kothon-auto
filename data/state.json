@@ -1,5 +1,5 @@
 {
- "update_offset": 0,
+ "update_offset": 167819728,
  "next_id": 5,
  "last_fetch": "2026-11-14T10:12:42Z",
  "seen": [
@@ -108,9 +108,9 @@
   },
   "4": {
    "id": 4,
-   "status": "pending",
+   "status": "rejected",
    "created": "2026-11-14T10:17:06Z",
-   "updated": "2026-11-14T10:17:06Z",
+   "updated": "2026-11-14T10:17:39Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/country/497815",
    "orig_title": "রাঙামাটিতে খেলনা পিস্তল দিয়ে ডাকাতি, গণপিটুনিতে যুবক নিহত",
