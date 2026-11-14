@@ -1,20 +1,79 @@
-name: Bogra Kothon Auto Post
+name: Bogra Kothon Auto
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    # প্রতি ১৫ মিনিটে চলবে (Telegram রিপ্লাই চেক করার জন্য)।
+    # নতুন নিউজ আনা হয় config.json-এর fetch_every_minutes অনুযায়ী (ডিফল্ট ৯০ মিনিট)।
+    - cron: "*/15 * * * *"
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "কী করবেন? run = স্বাভাবিক | fetch = এখনই নতুন নিউজ আনুন | check = সব সেটিং পরীক্ষা"
+        required: true
+        default: "run"
+        type: choice
+        options:
+          - run
+          - fetch
+          - check
+
+permissions:
+  contents: write
+
+# একসাথে দুটি রান চলবে না
+concurrency:
+  group: bogra-kothon-auto
+  cancel-in-progress: false
 
 jobs:
-  post-news:
+  run:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: কোড ডাউনলোড
+        uses: actions/checkout@v4
+
+      - name: Python সেটআপ
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - run: pip install feedparser requests Pillow
-      - run: python main.py
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: বাংলা টেক্সট রেন্ডারের লাইব্রেরি
+        run: sudo apt-get update -y && sudo apt-get install -y libraqm0 libfribidi0 libharfbuzz0b
+
+      - name: প্যাকেজ ইনস্টল
+        run: pip install -r requirements.txt
+
+      - name: সিস্টেম চালানো
         env:
           FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
           FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODE: ${{ github.event.inputs.mode || 'run' }}
+        run: |
+          if [ "$MODE" = "check" ]; then
+            python main.py --check
+          elif [ "$MODE" = "fetch" ]; then
+            python main.py --force-fetch
+          else
+            python main.py
+          fi
+
+      - name: অবস্থা (state) সেভ করা
+        if: always()
+        run: |
+          git config user.name "bogra-kothon-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/state.json || true
+          if git diff --cached --quiet; then
+            echo "পরিবর্তন নেই"
+          else
+            git commit -m "update state"
+            for i in 1 2 3; do
+              git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push && break
+              sleep 5
+            done
+          fi
