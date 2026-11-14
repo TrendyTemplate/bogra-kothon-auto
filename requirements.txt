@@ -1,0 +1,6 @@
+# Bogra Kothon Automation - Requirements
+feedparser
+requests
+Pillow
+python-dotenv
+# WhatsApp এর জন্য পরে: whatsapp-web.js বা pywhatkit
