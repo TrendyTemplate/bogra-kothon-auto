@@ -13,24 +13,116 @@
     "cream": "#F5EFE0"
   },
   "bogra_keywords": [
-    "বগুড়া", "বগুড়ার", "শিবগঞ্জ", "শাজাহানপুর", "গাবতলী", "সারিয়াকান্দি",
-    "ধুনট", "নন্দীগ্রাম", "কাহালু", "আদমদীঘি", "দুপচাঁচিয়া", "সোনাতলা",
-    "Bogura", "Bogra"
+    "বগুড়া",
+    "বগুড়ার",
+    "শিবগঞ্জ",
+    "শাজাহানপুর",
+    "গাবতলী",
+    "সারিয়াকান্দি",
+    "ধুনট",
+    "নন্দীগ্রাম",
+    "কাহালু",
+    "আদমদীঘি",
+    "দুপচাঁচিয়া",
+    "সোনাতলা",
+    "Bogura",
+    "Bogra"
   ],
   "breaking_keywords": [
-    "ব্রেকিং", "জরুরি", "নিহত", "ভূমিকম্প", "অগ্নিকাণ্ড", "আগুন", "দুর্ঘটনা",
-    "গ্রেপ্তার", "সংঘর্ষ", "হামলা", "বন্যা", "ঘূর্ণিঝড়", "বিস্ফোরণ", "মৃত্যু",
-    "প্রাণ গেল", "লাইভ", "Breaking", "Live"
+    "ব্রেকিং",
+    "জরুরি",
+    "নিহত",
+    "ভূমিকম্প",
+    "অগ্নিকাণ্ড",
+    "আগুন",
+    "দুর্ঘটনা",
+    "গ্রেপ্তার",
+    "সংঘর্ষ",
+    "হামলা",
+    "বন্যা",
+    "ঘূর্ণিঝড়",
+    "বিস্ফোরণ",
+    "মৃত্যু",
+    "প্রাণ গেল",
+    "লাইভ",
+    "Breaking",
+    "Live"
   ],
   "feeds": [
-    {"name": "প্রথম আলো", "url": "https://www.prothomalo.com/feed", "enabled": true},
-    {"name": "যুগান্তর", "url": "https://www.jugantor.com/feed/rss.xml", "enabled": true},
-    {"name": "ইত্তেফাক", "url": "https://www.ittefaq.com.bd/rss/rss.xml", "enabled": true},
-    {"name": "বিডিনিউজ ২৪", "url": "https://bangla.bdnews24.com/?widgetName=rssfeed&widgetId=1151&getXmlFeed=true", "enabled": true},
-    {"name": "বাংলা ট্রিবিউন", "url": "https://www.banglatribune.com/feed", "enabled": true},
-    {"name": "কালের কণ্ঠ", "url": "https://www.kalerkantho.com/rss.xml", "enabled": true},
-    {"name": "বাংলানিউজ ২৪", "url": "https://www.banglanews24.com/rss/rss.xml", "enabled": true},
-    {"name": "দ্য ডেইলি স্টার", "url": "https://www.thedailystar.net/frontpage/rss.xml", "enabled": true},
-    {"name": "ঢাকা ট্রিবিউন", "url": "https://www.dhakatribune.com/feed", "enabled": true}
+    {
+      "name": "প্রথম আলো",
+      "url": "https://www.prothomalo.com/feed",
+      "enabled": true
+    },
+    {
+      "name": "যুগান্তর",
+      "url": "https://www.jugantor.com/feed/rss.xml",
+      "enabled": false
+    },
+    {
+      "name": "ইত্তেফাক",
+      "url": "https://www.ittefaq.com.bd/rss/rss.xml",
+      "enabled": false
+    },
+    {
+      "name": "বিডিনিউজ ২৪",
+      "url": "https://bangla.bdnews24.com/?widgetName=rssfeed&widgetId=1151&getXmlFeed=true",
+      "enabled": false
+    },
+    {
+      "name": "বাংলা ট্রিবিউন",
+      "url": "https://www.banglatribune.com/feed",
+      "enabled": false
+    },
+    {
+      "name": "কালের কণ্ঠ",
+      "url": "https://www.kalerkantho.com/rss.xml",
+      "enabled": false
+    },
+    {
+      "name": "বাংলানিউজ ২৪",
+      "url": "https://www.banglanews24.com/rss/rss.xml",
+      "enabled": false
+    },
+    {
+      "name": "দ্য ডেইলি স্টার",
+      "url": "https://www.thedailystar.net/frontpage/rss.xml",
+      "enabled": true
+    },
+    {
+      "name": "ঢাকা ট্রিবিউন",
+      "url": "https://www.dhakatribune.com/feed",
+      "enabled": false
+    },
+    {
+      "name": "বিবিসি বাংলা",
+      "url": "https://feeds.bbci.co.uk/bengali/rss.xml",
+      "enabled": true
+    },
+    {
+      "name": "জাগো নিউজ ২৪",
+      "url": "https://www.jagonews24.com/rss/rss.xml",
+      "enabled": true
+    },
+    {
+      "name": "দৈনিক বাংলাদেশ",
+      "url": "https://www.daily-bangladesh.com/rss/rss.xml",
+      "enabled": true
+    },
+    {
+      "name": "বাংলা ট্রিবিউন (বিকল্প)",
+      "url": "https://www.banglatribune.com/rss.xml",
+      "enabled": true
+    },
+    {
+      "name": "ঢাকা পোস্ট",
+      "url": "https://www.dhakapost.com/rss/rss.xml",
+      "enabled": true
+    },
+    {
+      "name": "সমকাল",
+      "url": "https://samakal.com/rss.xml",
+      "enabled": true
+    }
   ]
 }
