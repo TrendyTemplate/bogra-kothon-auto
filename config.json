@@ -1,0 +1,36 @@
+{
+  "fetch_every_minutes": 90,
+  "max_drafts_per_run": 3,
+  "max_pending": 10,
+  "max_article_age_hours": 12,
+  "draft_expire_hours": 36,
+  "caption_suffix": "বিস্তারিত নিউজ কমেন্টে",
+  "credit_source_in_comment": false,
+  "page_url": "facebook.com/bograkothon",
+  "brand": {
+    "green": "#0B3D2E",
+    "red": "#C8102E",
+    "cream": "#F5EFE0"
+  },
+  "bogra_keywords": [
+    "বগুড়া", "বগুড়ার", "শিবগঞ্জ", "শাজাহানপুর", "গাবতলী", "সারিয়াকান্দি",
+    "ধুনট", "নন্দীগ্রাম", "কাহালু", "আদমদীঘি", "দুপচাঁচিয়া", "সোনাতলা",
+    "Bogura", "Bogra"
+  ],
+  "breaking_keywords": [
+    "ব্রেকিং", "জরুরি", "নিহত", "ভূমিকম্প", "অগ্নিকাণ্ড", "আগুন", "দুর্ঘটনা",
+    "গ্রেপ্তার", "সংঘর্ষ", "হামলা", "বন্যা", "ঘূর্ণিঝড়", "বিস্ফোরণ", "মৃত্যু",
+    "প্রাণ গেল", "লাইভ", "Breaking", "Live"
+  ],
+  "feeds": [
+    {"name": "প্রথম আলো", "url": "https://www.prothomalo.com/feed", "enabled": true},
+    {"name": "যুগান্তর", "url": "https://www.jugantor.com/feed/rss.xml", "enabled": true},
+    {"name": "ইত্তেফাক", "url": "https://www.ittefaq.com.bd/rss/rss.xml", "enabled": true},
+    {"name": "বিডিনিউজ ২৪", "url": "https://bangla.bdnews24.com/?widgetName=rssfeed&widgetId=1151&getXmlFeed=true", "enabled": true},
+    {"name": "বাংলা ট্রিবিউন", "url": "https://www.banglatribune.com/feed", "enabled": true},
+    {"name": "কালের কণ্ঠ", "url": "https://www.kalerkantho.com/rss.xml", "enabled": true},
+    {"name": "বাংলানিউজ ২৪", "url": "https://www.banglanews24.com/rss/rss.xml", "enabled": true},
+    {"name": "দ্য ডেইলি স্টার", "url": "https://www.thedailystar.net/frontpage/rss.xml", "enabled": true},
+    {"name": "ঢাকা ট্রিবিউন", "url": "https://www.dhakatribune.com/feed", "enabled": true}
+  ]
+}
