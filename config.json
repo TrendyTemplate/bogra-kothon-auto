@@ -1,9 +1,9 @@
 {
-  "fetch_every_minutes": 90,
-  "max_drafts_per_run": 3,
-  "max_pending": 10,
-  "max_article_age_hours": 12,
-  "draft_expire_hours": 36,
+  "fetch_every_minutes": 15,
+  "max_drafts_per_run": 2,
+  "max_pending": 12,
+  "max_article_age_hours": 4,
+  "draft_expire_hours": 12,
   "caption_suffix": "বিস্তারিত নিউজ কমেন্টে",
   "credit_source_in_comment": false,
   "page_url": "facebook.com/bograkothon",
@@ -107,12 +107,12 @@
     {
       "name": "দৈনিক বাংলাদেশ",
       "url": "https://www.daily-bangladesh.com/rss/rss.xml",
-      "enabled": true
+      "enabled": false
     },
     {
       "name": "বাংলা ট্রিবিউন (বিকল্প)",
       "url": "https://www.banglatribune.com/rss.xml",
-      "enabled": true
+      "enabled": false
     },
     {
       "name": "ঢাকা পোস্ট",
@@ -122,7 +122,17 @@
     {
       "name": "সমকাল",
       "url": "https://samakal.com/rss.xml",
-      "enabled": true
+      "enabled": false
     }
+  ],
+  "daily_draft_cap": 10,
+  "active_hours": [
+    7,
+    23
+  ],
+  "dateline": "বগুড়া কথন অফিস প্রতিনিধি",
+  "fixed_hashtags": [
+    "#বগুড়াকথন",
+    "#BograKothon"
   ]
 }
