@@ -1,5 +1,5 @@
 {
- "update_offset": 167819731,
+ "update_offset": 167819735,
  "next_id": 11,
  "last_fetch": "2026-11-14T10:43:18Z",
  "seen": [
@@ -249,9 +249,9 @@
   },
   "7": {
    "id": 7,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-14T10:34:39Z",
-   "updated": "2026-11-14T10:34:39Z",
+   "updated": "2026-11-14T10:51:40Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/national/497834",
    "orig_title": "সোনারগাঁওয়ে বাসের ধাক্কায় মোটরসাইকেল চালক নিহত",
@@ -273,13 +273,15 @@
    "tg_msgs": [
     24,
     25
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131599051258652",
+   "fb_photo_id": "122131599027258652"
   },
   "8": {
    "id": 8,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-14T10:36:49Z",
-   "updated": "2026-11-14T10:36:49Z",
+   "updated": "2026-11-14T10:52:03Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/international/497835",
    "orig_title": "নগ্ন ছবি পেয়ে পাকিস্তানিকে গোপন তথ্য দিলেন ভারতের বিমানবাহিনীর কর্মকর্তা",
@@ -301,13 +303,15 @@
    "tg_msgs": [
     26,
     27
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131599219258652",
+   "fb_photo_id": "122131599195258652"
   },
   "9": {
    "id": 9,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-14T10:46:53Z",
-   "updated": "2026-11-14T10:46:53Z",
+   "updated": "2026-11-14T10:52:13Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/national/497840",
    "orig_title": "ডেঙ্গুতে ৮ জনের মৃত্যু, হাসপাতালে ১৬৭৪",
@@ -328,13 +332,15 @@
    "tg_msgs": [
     28,
     29
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131599309258652",
+   "fb_photo_id": "122131599285258652"
   },
   "10": {
    "id": 10,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-14T10:47:47Z",
-   "updated": "2026-11-14T10:47:47Z",
+   "updated": "2026-11-14T10:52:22Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/international/497839",
    "orig_title": "জাপানে মার্কিন বিমান বাহিনীর ক্যাপ্টেন গ্রেপ্তার",
@@ -356,7 +362,9 @@
    "tg_msgs": [
     30,
     31
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131599417258652",
+   "fb_photo_id": "122131599393258652"
   }
  },
  "msg_map": {
