@@ -693,7 +693,7 @@ def tg(method, data=None, files=None, timeout=60):
     return j["result"]
 
 
-def tg_text(text, reply_to=None):
+def tg_text(text, reply_to=None, markup=None):
     ids = []
     chunks = [text[i:i + 3900] for i in range(0, len(text), 3900)] or [""]
     for c in chunks:
@@ -701,16 +701,18 @@ def tg_text(text, reply_to=None):
         if reply_to:
             data["reply_to_message_id"] = reply_to
             data["allow_sending_without_reply"] = "true"
+        if markup and c is chunks[-1]:
+            data["reply_markup"] = markup
         ids.append(tg("sendMessage", data)["message_id"])
     return ids
 
 
 def draft_keyboard(did):
     return json.dumps({"inline_keyboard": [
-        [{"text": "✅ পোস্ট করুন", "callback_data": f"a:{did}"},
-         {"text": "❌ বাতিল", "callback_data": f"r:{did}"}],
-        [{"text": "✏️ শিরোনাম এডিট", "callback_data": f"e:{did}"},
-         {"text": "🔄 ছবি/কার্ড নতুন করে", "callback_data": f"n:{did}"}]]})
+        [{"text": "✅ Approve & Post", "callback_data": f"a:{did}"},
+         {"text": "❌ Reject", "callback_data": f"r:{did}"}],
+        [{"text": "✏️ Edit Headline", "callback_data": f"e:{did}"},
+         {"text": "🔄 New Card", "callback_data": f"n:{did}"}]]})
 
 
 def tg_photo(img_bytes, caption="", markup=None):
@@ -744,12 +746,12 @@ def send_draft(d, img_bytes, st):
     """ড্রাফট Telegram-এ পাঠায় এবং message_id গুলো ম্যাপ করে।"""
     cap = (f"{d['caption'][:850]}\n\n"
            f"— ড্রাফট #{d['id']} · {d['category']} · সূত্র: {d['source']}")
-    pid, file_id = tg_photo(img_bytes, cap, draft_keyboard(d["id"]))
+    pid, file_id = tg_photo(img_bytes, cap)
     d["photo_file_id"] = file_id
     body_msg = (f"📄 কমেন্টে যা যাবে (ড্রাফট #{d['id']}):\n\n{d['body']}\n\n"
                 f"🔗 মূল সূত্র (শুধু আপনার যাচাইয়ের জন্য): {d['link']}\n\n"
-                f"👆 উপরের কার্ডের নিচের বাটন চাপুন।")
-    bids = tg_text(body_msg, reply_to=pid)
+                f"👇 নিচের বাটন চাপুন (Approve / Reject / Edit)।")
+    bids = tg_text(body_msg, reply_to=pid, markup=draft_keyboard(d["id"]))
     for mid in [pid] + bids:
         st["msg_map"][str(mid)] = d["id"]
         d["tg_msgs"] = d.get("tg_msgs", []) + [mid]
@@ -1011,14 +1013,15 @@ def handle_callback(cb, st, cfg):
         send_draft(d, img, st)
 
 
-def process_replies(st, cfg):
+def process_replies(st, cfg, timeout=0):
     try:
-        updates = tg("getUpdates", {"offset": st["update_offset"], "timeout": 0,
+        updates = tg("getUpdates", {"offset": st["update_offset"], "timeout": timeout,
                                     "allowed_updates": json.dumps(["message", "callback_query"])})
     except Exception as ex:
         log("Telegram আপডেট আনা যায়নি:", ex)
         return
-    log(f"Telegram: {len(updates)}টি নতুন মেসেজ")
+    if updates:
+        log(f"Telegram: {len(updates)}টি নতুন মেসেজ/বাটন")
     for u in updates:
         st["update_offset"] = u["update_id"] + 1
         cb = u.get("callback_query")
@@ -1281,14 +1284,23 @@ def main():
 
     ensure_fonts()
     st = load_state()
-    process_replies(st, cfg)
-    expire_old(st, cfg)
-    retry_comments(st, cfg)
-    save_state(st)
-    try:
-        fetch_new_drafts(st, cfg, force=args.force_fetch)
-    finally:
+    deadline = time.time() + cfg.get("listen_minutes", 13) * 60
+    n = 0
+    while True:
+        process_replies(st, cfg, timeout=0 if n == 0 else 20)
+        expire_old(st, cfg)
+        if n % 12 == 0:
+            retry_comments(st, cfg)
         save_state(st)
+        try:
+            fetch_new_drafts(st, cfg, force=(args.force_fetch and n == 0))
+        except Exception as ex:
+            log("নিউজ আনতে ত্রুটি:", ex)
+        finally:
+            save_state(st)
+        n += 1
+        if args.force_fetch or time.time() > deadline - 40:
+            break
     return 0
 
 
