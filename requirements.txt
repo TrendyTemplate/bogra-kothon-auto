@@ -1,6 +1,5 @@
-# Bogra Kothon Automation - Requirements
-feedparser
-requests
-Pillow
-python-dotenv
-# WhatsApp এর জন্য পরে: whatsapp-web.js বা pywhatkit
+requests>=2.31
+feedparser>=6.0
+beautifulsoup4>=4.12
+lxml>=5.0
+Pillow>=10.3
