@@ -360,7 +360,7 @@ PROMPT = """তুমি "বগুড়া কথন" নিউজ পোর�
 - headline: ফেসবুক ফটো কার্ডের শিরোনাম। ৬–১২ শব্দ, সর্বোচ্চ ৭০ অক্ষর, সরাসরি ও আকর্ষণীয়, শেষে দাঁড়ি নয়।
 - category: ১ শব্দের ট্যাগ (যেমন: বগুড়া, রাজনীতি, দুর্ঘটনা, অর্থনীতি, খেলা, আন্তর্জাতিক, শিক্ষা, স্বাস্থ্য, বিনোদন, জাতীয়)
 - intro: ফেসবুক ক্যাপশনের জন্য ২–৩ লাইনের সারকথা (সর্বোচ্চ ২২০ অক্ষর)। শিরোনামের পরিপূরক, কিন্তু পুরো খবর ফাঁস করবে না; আগ্রহ জাগিয়ে কমেন্টে যেতে উৎসাহ দেবে।
-- hashtags: ৫–৬টি হ্যাশট্যাগ, প্রতিটি # দিয়ে শুরু, ভেতরে স্পেস নয়। বিষয়, স্থান ও জনপ্রিয় সংশ্লিষ্ট শব্দভিত্তিক (বাংলা, দরকারে ২টি ইংরেজি)। যেমন #বগুড়া #সড়কদুর্ঘটনা।
+- hashtags: ৫–৬টি হ্যাশট্যাগ, শুধু ইংরেজি অক্ষরে (বাংলা অক্ষর নয়), প্রতিটি # দিয়ে শুরু, ভেতরে স্পেস নয়, CamelCase। বিষয়, স্থান ও জনপ্রিয় সংশ্লিষ্ট শব্দভিত্তিক। যেমন #Bogura #RoadAccident #BangladeshNews।
 - body: বিস্তারিত সংবাদ। ৩–৪টি ছোট অনুচ্ছেদ (অনুচ্ছেদের মাঝে ফাঁকা লাইন), মোট ১২০–২২০ শব্দ, প্রথম অনুচ্ছেদে মূল ঘটনা।
 
 সূত্রের শিরোনাম: {title}
@@ -446,8 +446,8 @@ def validate_ai(out, cfg):
     intro = strip_links(re.sub(r"\s+", " ", str(out.get("intro", ""))).strip())[:260]
     tags = []
     for t in (out.get("hashtags") or []):
-        t = "#" + re.sub(r"[^\u0980-\u09FFa-zA-Z0-9_]", "", str(t))
-        if len(t) > 2 and t not in tags:
+        t = "#" + re.sub(r"[^a-zA-Z0-9_]", "", str(t))
+        if len(t) > 3 and t not in tags:
             tags.append(t)
     return {"headline": headline, "body": body, "category": category, "intro": intro, "hashtags": tags[:6]}
 
@@ -634,7 +634,7 @@ def render_card(headline, category, photo_bytes, cfg, variant=0):
     LM, RM = 72, 72
     max_w = S - LM - RM
     footer_y = S - 64
-    block_bottom = footer_y - 56
+    block_bottom = footer_y - 20
 
     fnt, lines, lh = fit_headline(headline, max_w, max_h=int(lh_limit(S)))
     text_h = len(lines) * lh
@@ -653,12 +653,7 @@ def render_card(headline, category, photo_bytes, cfg, variant=0):
         d.text((LM, y0 + i * lh + int(lh * 0.5)), ln, font=fnt, fill=cream + (255,), anchor="lm")
 
     # ফুটার
-    d.rectangle([LM, footer_y - 34, LM + 70, footer_y - 28], fill=red + (255,))
-    small = font("medium", 32)
-    d.text((LM, footer_y), "বগুড়া কথন", font=font("bold", 34), fill=cream + (255,), anchor="lm")
-    wname = d.textlength("বগুড়া কথন", font=font("bold", 34))
-    d.text((LM + wname + 24, footer_y), cfg.get("page_url", ""), font=small,
-           fill=cream[:3] + (190,), anchor="lm")
+    d.rectangle([LM, S - 62, LM + 70, S - 56], fill=red + (255,))
 
     out = io.BytesIO()
     card.convert("RGB").save(out, format="JPEG", quality=93, optimize=True, subsampling=0)
@@ -747,10 +742,8 @@ HELP_TEXT = (
 
 def send_draft(d, img_bytes, st):
     """ড্রাফট Telegram-এ পাঠায় এবং message_id গুলো ম্যাপ করে।"""
-    cap = (f"📰 ড্রাফট #{d['id']}   🏷 {d['category']}\n\n"
-           f"✍️ শিরোনাম: {d['headline']}\n\n"
-           f"📝 ক্যাপশন:\n{d['caption'][:600]}\n\n"
-           f"📡 সূত্র: {d['source']}")
+    cap = (f"{d['caption'][:850]}\n\n"
+           f"— ড্রাফট #{d['id']} · {d['category']} · সূত্র: {d['source']}")
     pid, file_id = tg_photo(img_bytes, cap, draft_keyboard(d["id"]))
     d["photo_file_id"] = file_id
     body_msg = (f"📄 কমেন্টে যা যাবে (ড্রাফট #{d['id']}):\n\n{d['body']}\n\n"
@@ -792,9 +785,7 @@ def fb_comment(object_id, message):
 
 
 def build_caption(d, cfg):
-    parts = [d["headline"]]
-    if d.get("intro"):
-        parts.append(d["intro"])
+    parts = [d.get("intro") or d["headline"]]
     parts.append(f"📅 {bn_date_long()}")
     parts.append(cfg["caption_suffix"] + " 👇")
     tags = list(d.get("hashtags") or [])
