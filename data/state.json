@@ -82,9 +82,9 @@
  "drafts": {
   "1": {
    "id": 1,
-   "status": "pending",
+   "status": "expired",
    "created": "2026-11-14T10:03:31Z",
-   "updated": "2026-11-14T10:03:31Z",
+   "updated": "2026-11-14T22:03:40Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/country/497821",
    "orig_title": "অসুস্থ রোগীকে নার্স বললেন নাটক করেন, পরে রোগীর মৃত্যু",
@@ -109,9 +109,9 @@
   },
   "2": {
    "id": 2,
-   "status": "pending",
+   "status": "expired",
    "created": "2026-11-14T10:07:16Z",
-   "updated": "2026-11-14T10:07:16Z",
+   "updated": "2026-11-14T22:07:24Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/international/497819",
    "orig_title": "সৌদি আরবে পতিতাবৃত্তির দায়ে ৬ প্রবাসী নারী গ্রেপ্তার",
