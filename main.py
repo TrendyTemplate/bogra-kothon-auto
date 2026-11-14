@@ -42,7 +42,7 @@ LOGO_PATH = next((p for p in (os.path.join(ROOT, "logo.png"), os.path.join(ROOT,
 
 GRAPH_VERSION = os.environ.get("GRAPH_VERSION", "v25.0")
 GEMINI_MODELS = [m for m in [os.environ.get("GEMINI_MODEL", "").strip(),
-                             "gemini-2.5-flash", "gemini-2.5-flash-lite"] if m]
+                             "gemini-flash-latest", "gemini-2.5-flash", "gemini-flash-lite-latest", "gemini-2.5-flash-lite", "gemini-3.5-flash"] if m]
 
 HEADERS = {
     "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -394,7 +394,7 @@ def gemini_rewrite(title, text):
                 time.sleep(8 * (attempt + 1))
                 continue
             if r.status_code == 404:
-                last_err = f"মডেল {model} পাওয়া যায়নি"
+                last_err = f"404 {model}: " + r.text[:120].replace(chr(10), " ")
                 break
             if r.status_code in (500, 503):
                 last_err = f"{r.status_code} সার্ভার ব্যস্ত"
