@@ -28,7 +28,7 @@ from urllib.parse import urlsplit, urlunsplit
 import feedparser
 import requests
 from bs4 import BeautifulSoup
-from PIL import Image, ImageDraw, ImageFont, ImageOps, features
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps, features
 
 # ──────────────────────────────────────────────────────────────
 # ধ্রুবক ও পরিবেশ
@@ -96,6 +96,26 @@ def parse_iso(s):
         return None
 
 
+BN_DIG = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
+BN_MONTH = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট",
+            "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"]
+BN_DAY = ["সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার", "রবিবার"]
+
+
+def dhaka_now():
+    return now_utc() + timedelta(hours=6)
+
+
+def bn_date(dt=None):
+    dt = dt or dhaka_now()
+    return f"{dt.day} {BN_MONTH[dt.month - 1]} {dt.year}".translate(BN_DIG)
+
+
+def bn_date_long(dt=None):
+    dt = dt or dhaka_now()
+    return f"{BN_DAY[dt.weekday()]}, {bn_date(dt)}"
+
+
 # ──────────────────────────────────────────────────────────────
 # কনফিগ ও স্টেট
 # ──────────────────────────────────────────────────────────────
@@ -120,6 +140,7 @@ def load_state():
     st.setdefault("seen", [])
     st.setdefault("drafts", {})
     st.setdefault("msg_map", {})
+    st.setdefault("daily", {"date": "", "count": 0})
     return st
 
 
@@ -329,7 +350,7 @@ PROMPT = """তুমি "বগুড়া কথন" নিউজ পোর�
 ৩. মূল লেখার বাক্য বা শব্দবিন্যাস কপি করবে না। বাক্যের গঠন ও শব্দচয়ন নতুন করে সাজাও।
 ৪. সূত্র ইংরেজিতে হলে স্বাভাবিক বাংলায় লেখো।
 ৫. ভাষা প্রমিত, সহজ ও পেশাদার। অতিরঞ্জন বা ক্লিকবেইট নয়।
-৬. কোনো লিংক, ওয়েবসাইট বা সংবাদমাধ্যমের নাম, হ্যাশট্যাগ, ইমোজি লিখবে না।
+৬. কোনো লিংক, ওয়েবসাইট বা সংবাদমাধ্যমের নাম, ইমোজি লিখবে না। headline, intro ও body-তে হ্যাশট্যাগ নয় (শুধু hashtags ফিল্ডে)।
 ৭. অভিযোগ, দাবি বা সন্দেহকে নিশ্চিত তথ্য হিসেবে লিখবে না ("অভিযোগ করা হয়েছে", "পুলিশ জানিয়েছে" ইত্যাদি ব্যবহার করো)।
 ৮. ধর্ষণ বা যৌন নিপীড়নের শিকার ব্যক্তি এবং শিশু অপরাধীর পরিচয় প্রকাশ করবে না।
 ৯. সূত্রে পর্যাপ্ত তথ্য না থাকলে, বা এটি সংবাদ না হয়ে বিজ্ঞাপন/প্রচার হলে, skip=true দাও।
@@ -338,6 +359,8 @@ PROMPT = """তুমি "বগুড়া কথন" নিউজ পোর�
 - skip: true/false
 - headline: ফেসবুক ফটো কার্ডের শিরোনাম। ৬–১২ শব্দ, সর্বোচ্চ ৭০ অক্ষর, সরাসরি ও আকর্ষণীয়, শেষে দাঁড়ি নয়।
 - category: ১ শব্দের ট্যাগ (যেমন: বগুড়া, রাজনীতি, দুর্ঘটনা, অর্থনীতি, খেলা, আন্তর্জাতিক, শিক্ষা, স্বাস্থ্য, বিনোদন, জাতীয়)
+- intro: ফেসবুক ক্যাপশনের জন্য ২–৩ লাইনের সারকথা (সর্বোচ্চ ২২০ অক্ষর)। শিরোনামের পরিপূরক, কিন্তু পুরো খবর ফাঁস করবে না; আগ্রহ জাগিয়ে কমেন্টে যেতে উৎসাহ দেবে।
+- hashtags: ৫–৬টি হ্যাশট্যাগ, প্রতিটি # দিয়ে শুরু, ভেতরে স্পেস নয়। বিষয়, স্থান ও জনপ্রিয় সংশ্লিষ্ট শব্দভিত্তিক (বাংলা, দরকারে ২টি ইংরেজি)। যেমন #বগুড়া #সড়কদুর্ঘটনা।
 - body: বিস্তারিত সংবাদ। ৩–৪টি ছোট অনুচ্ছেদ (অনুচ্ছেদের মাঝে ফাঁকা লাইন), মোট ১২০–২২০ শব্দ, প্রথম অনুচ্ছেদে মূল ঘটনা।
 
 সূত্রের শিরোনাম: {title}
@@ -353,8 +376,10 @@ SCHEMA = {
         "headline": {"type": "STRING"},
         "category": {"type": "STRING"},
         "body": {"type": "STRING"},
+        "intro": {"type": "STRING"},
+        "hashtags": {"type": "ARRAY", "items": {"type": "STRING"}},
     },
-    "required": ["skip", "headline", "category", "body"],
+    "required": ["skip", "headline", "category", "body", "intro", "hashtags"],
 }
 
 
@@ -418,7 +443,13 @@ def validate_ai(out, cfg):
         return None
     if len(headline) > 110:
         headline = headline[:107].rstrip() + "…"
-    return {"headline": headline, "body": body, "category": category}
+    intro = strip_links(re.sub(r"\s+", " ", str(out.get("intro", ""))).strip())[:260]
+    tags = []
+    for t in (out.get("hashtags") or []):
+        t = "#" + re.sub(r"[^\u0980-\u09FFa-zA-Z0-9_]", "", str(t))
+        if len(t) > 2 and t not in tags:
+            tags.append(t)
+    return {"headline": headline, "body": body, "category": category, "intro": intro, "hashtags": tags[:6]}
 
 
 # ──────────────────────────────────────────────────────────────
@@ -485,16 +516,16 @@ def wrap_text(text, fnt, max_w):
 
 
 def fit_headline(text, max_w, max_h, max_lines=5):
-    for size in range(100, 49, -4):
+    for size in range(108, 49, -4):
         f = font("bold", size)
         lines = wrap_text(text, f, max_w)
-        lh = int(size * 1.38)
+        lh = int(size * 1.16)
         if len(lines) <= max_lines and len(lines) * lh <= max_h:
             return f, lines, lh
     f = font("bold", 50)
     lines = wrap_text(text, f, max_w)[:max_lines]
     lines[-1] = lines[-1].rstrip("… ") + "…"
-    return f, lines, int(50 * 1.38)
+    return f, lines, int(50 * 1.16)
 
 
 def cover_crop(img, size):
@@ -539,7 +570,7 @@ def load_logo(box, brand):
     return draw_fallback_logo(box, green, red, cream)
 
 
-def render_card(headline, category, photo_bytes, cfg):
+def render_card(headline, category, photo_bytes, cfg, variant=0):
     S = 1080
     brand = cfg["brand"]
     green, red, cream = (hex_rgb(brand[k]) for k in ("green", "red", "cream"))
@@ -551,7 +582,12 @@ def render_card(headline, category, photo_bytes, cfg):
             im = Image.open(io.BytesIO(photo_bytes))
             im = ImageOps.exif_transpose(im).convert("RGB")
             if min(im.size) >= 300:
-                bg = cover_crop(im, S)
+                bg = ImageOps.fit(im, (S, S), method=Image.LANCZOS, centering=((0.5, 0.2, 0.8)[variant % 3], 0.4))
+                # কার্ডের নিজস্ব ডিজাইন-ট্রিটমেন্ট: হালকা জুম, রঙ-ঘনত্ব ও কনট্রাস্ট
+                z = 1.08
+                bg = bg.crop((int(S * (z - 1) / 2 / z), int(S * (z - 1) / 3 / z), int(S * (1 - (z - 1) / 2 / z)),
+                              int(S * (1 - (z - 1) * 2 / 3 / z)))).resize((S, S), Image.LANCZOS)
+                bg = ImageEnhance.Contrast(ImageEnhance.Color(bg).enhance(1.08)).enhance(1.06)
         except Exception as ex:
             log("  (ছবি খোলা যায়নি, ব্র্যান্ড ব্যাকগ্রাউন্ড হবে):", ex)
     if bg is None:
@@ -585,6 +621,14 @@ def render_card(headline, category, photo_bytes, cfg):
     ImageDraw.Draw(plate).rounded_rectangle([0, 0, plate_w - 1, plate_h - 1], radius=26, fill=cream + (255,))
     plate.alpha_composite(logo, (pad, pad))
     card.alpha_composite(plate, (56, 56))
+
+    # তারিখ (উপরে ডানে)
+    dfont = font("medium", 30)
+    dtxt = bn_date()
+    dw = int(d.textlength(dtxt, font=dfont)) + 40
+    dx1 = S - 56
+    d.rounded_rectangle([dx1 - dw, 78, dx1, 78 + 52], radius=14, fill=(0, 0, 0, 120))
+    d.text((dx1 - dw + 20, 78 + 26), dtxt, font=dfont, fill=cream + (255,), anchor="lm")
 
     # বাম মার্জিন ও লেখার এলাকা
     LM, RM = 72, 72
@@ -666,8 +710,19 @@ def tg_text(text, reply_to=None):
     return ids
 
 
-def tg_photo(img_bytes, caption=""):
-    res = tg("sendPhoto", {"chat_id": TG_CHAT, "caption": caption[:1000]},
+def draft_keyboard(did):
+    return json.dumps({"inline_keyboard": [
+        [{"text": "✅ পোস্ট করুন", "callback_data": f"a:{did}"},
+         {"text": "❌ বাতিল", "callback_data": f"r:{did}"}],
+        [{"text": "✏️ শিরোনাম এডিট", "callback_data": f"e:{did}"},
+         {"text": "🔄 ছবি/কার্ড নতুন করে", "callback_data": f"n:{did}"}]]})
+
+
+def tg_photo(img_bytes, caption="", markup=None):
+    data = {"chat_id": TG_CHAT, "caption": caption[:1000]}
+    if markup:
+        data["reply_markup"] = markup
+    res = tg("sendPhoto", data,
              files={"photo": ("card.jpg", img_bytes, "image/jpeg")})
     return res["message_id"], res["photo"][-1]["file_id"]
 
@@ -694,13 +749,13 @@ def send_draft(d, img_bytes, st):
     """ড্রাফট Telegram-এ পাঠায় এবং message_id গুলো ম্যাপ করে।"""
     cap = (f"📰 ড্রাফট #{d['id']}   🏷 {d['category']}\n\n"
            f"✍️ শিরোনাম: {d['headline']}\n\n"
-           f"📝 ক্যাপশন:\n{d['caption']}\n\n"
+           f"📝 ক্যাপশন:\n{d['caption'][:600]}\n\n"
            f"📡 সূত্র: {d['source']}")
-    pid, file_id = tg_photo(img_bytes, cap)
+    pid, file_id = tg_photo(img_bytes, cap, draft_keyboard(d["id"]))
     d["photo_file_id"] = file_id
     body_msg = (f"📄 কমেন্টে যা যাবে (ড্রাফট #{d['id']}):\n\n{d['body']}\n\n"
                 f"🔗 মূল সূত্র (শুধু আপনার যাচাইয়ের জন্য): {d['link']}\n\n"
-                f"👉 এই মেসেজে রিপ্লাই করুন: APPROVE / REJECT / EDIT: নতুন শিরোনাম")
+                f"👆 উপরের কার্ডের নিচের বাটন চাপুন।")
     bids = tg_text(body_msg, reply_to=pid)
     for mid in [pid] + bids:
         st["msg_map"][str(mid)] = d["id"]
@@ -736,8 +791,23 @@ def fb_comment(object_id, message):
     return r.json().get("id")
 
 
+def build_caption(d, cfg):
+    parts = [d["headline"]]
+    if d.get("intro"):
+        parts.append(d["intro"])
+    parts.append(f"📅 {bn_date_long()}")
+    parts.append(cfg["caption_suffix"] + " 👇")
+    tags = list(d.get("hashtags") or [])
+    for t in cfg.get("fixed_hashtags", []):
+        if t not in tags:
+            tags.append(t)
+    if tags:
+        parts.append(" ".join(tags))
+    return "\n\n".join(parts)
+
+
 def comment_text(d, cfg):
-    txt = strip_links(d["body"])
+    txt = f"{cfg.get('dateline', 'বগুড়া কথন অফিস প্রতিনিধি')} | {bn_date_long()}\n\n" + strip_links(d["body"])
     if cfg.get("credit_source_in_comment"):
         txt += f"\n\n(তথ্যসূত্র: {d['source']})"
     return txt
@@ -817,6 +887,10 @@ def handle_message(msg, st, cfg):
         return
     parsed = parse_command(text)
     mid = msg["message_id"]
+    rt = (msg.get("reply_to_message") or {}).get("message_id")
+    if not parsed and rt is not None and str(rt) in st.get("edit_wait", {}):
+        did_w = st["edit_wait"].pop(str(rt))
+        parsed = ("edit", int(did_w), text)
     if not parsed:
         tg_text("❓ বুঝতে পারিনি।\n\n" + HELP_TEXT, reply_to=mid)
         return
@@ -862,7 +936,8 @@ def handle_message(msg, st, cfg):
             return
         new_h = re.sub(r"\s+", " ", rest).strip()[:120]
         d["headline"] = new_h
-        d["caption"] = f"{new_h}\n\n{cfg['caption_suffix']}"
+        d["headline"] = new_h
+        d["caption"] = build_caption(d, cfg)
         img = render_card(new_h, d["category"], download_image(d.get("image_url")), cfg)
         d["updated"] = iso(now_utc())
         tg_text(f"✏️ ড্রাফট #{d['id']} এডিট হয়েছে। নিচের নতুন কার্ড দেখে APPROVE দিন:", reply_to=mid)
@@ -897,16 +972,78 @@ def handle_message(msg, st, cfg):
         tg_text(f"✅ ড্রাফট #{d['id']} ফেসবুকে পোস্ট হয়েছে (কমেন্টসহ)।\n{fb_link(d)}")
 
 
+def tg_clear_buttons(msg):
+    try:
+        tg("editMessageReplyMarkup", {"chat_id": TG_CHAT, "message_id": msg["message_id"],
+                                      "reply_markup": json.dumps({"inline_keyboard": []})})
+    except Exception:
+        pass
+
+
+def handle_callback(cb, st, cfg):
+    data = cb.get("data", "")
+    msg = cb.get("message") or {}
+    try:
+        act, did = data.split(":", 1)
+    except ValueError:
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"]})
+        return
+    d = st["drafts"].get(str(did))
+    if not d:
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"], "text": "ড্রাফট পাওয়া যায়নি", "show_alert": "true"})
+        return
+    if d["status"] in ("posted", "rejected", "expired") and act != "n":
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"], "text": f"আগেই {d['status']}"})
+        tg_clear_buttons(msg)
+        return
+    mid = msg.get("message_id")
+    if act == "a":
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"], "text": "পোস্ট হচ্ছে…"})
+        tg_clear_buttons(msg)
+        handle_message({"message_id": mid, "text": f"APPROVE {did}", "reply_to_message": {"message_id": mid}}, st, cfg)
+    elif act == "r":
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"], "text": "বাতিল"})
+        tg_clear_buttons(msg)
+        handle_message({"message_id": mid, "text": f"REJECT {did}", "reply_to_message": {"message_id": mid}}, st, cfg)
+    elif act == "e":
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"]})
+        ids = tg_text(f"✏️ ড্রাফট #{did}: এই মেসেজে রিপ্লাই করে নতুন শিরোনাম লিখুন।", reply_to=mid)
+        for m in ids:
+            st["msg_map"][str(m)] = d["id"]
+            st.setdefault("edit_wait", {})[str(m)] = d["id"]
+    elif act == "n":
+        tg("answerCallbackQuery", {"callback_query_id": cb["id"], "text": "নতুন কার্ড বানানো হচ্ছে…"})
+        d["variant"] = d.get("variant", 0) + 1
+        photo = download_image(d.get("image_url"))
+        img = render_card(d["headline"], d["category"], photo, cfg, variant=d["variant"])
+        tg_clear_buttons(msg)
+        send_draft(d, img, st)
+
+
 def process_replies(st, cfg):
     try:
         updates = tg("getUpdates", {"offset": st["update_offset"], "timeout": 0,
-                                    "allowed_updates": json.dumps(["message"])})
+                                    "allowed_updates": json.dumps(["message", "callback_query"])})
     except Exception as ex:
         log("Telegram আপডেট আনা যায়নি:", ex)
         return
     log(f"Telegram: {len(updates)}টি নতুন মেসেজ")
     for u in updates:
         st["update_offset"] = u["update_id"] + 1
+        cb = u.get("callback_query")
+        if cb:
+            if str((cb.get("message") or {}).get("chat", {}).get("id")) != TG_CHAT:
+                continue
+            try:
+                handle_callback(cb, st, cfg)
+            except Exception as ex:
+                log("  বাটন প্রসেসে ত্রুটি:", ex)
+                try:
+                    tg_text(f"⚠️ ত্রুটি: {str(ex)[:300]}")
+                except Exception:
+                    pass
+            save_state(st)
+            continue
         msg = u.get("message")
         if not msg:
             continue
@@ -966,7 +1103,19 @@ def fetch_new_drafts(st, cfg, force=False):
     if not due:
         log("নতুন নিউজ আনার সময় হয়নি — শুধু রিপ্লাই চেক হলো")
         return
-    room = min(cfg["max_drafts_per_run"], cfg["max_pending"] - len(pending))
+    today = dhaka_now().strftime("%Y-%m-%d")
+    if st["daily"].get("date") != today:
+        st["daily"] = {"date": today, "count": 0}
+    h = dhaka_now().hour
+    a0, a1 = cfg.get("active_hours", [0, 24])
+    if not force and not (a0 <= h < a1):
+        log(f"এখন সক্রিয় সময়ের বাইরে ({h}টা) — নতুন ড্রাফট হবে না")
+        return
+    cap_left = cfg.get("daily_draft_cap", 10) - st["daily"]["count"]
+    if cap_left <= 0:
+        log("আজকের ড্রাফট সীমা পূর্ণ")
+        return
+    room = min(cfg["max_drafts_per_run"], cfg["max_pending"] - len(pending), cap_left)
     if room <= 0:
         log(f"অপেক্ষমাণ ড্রাফট {len(pending)}টি — আগে সেগুলো APPROVE/REJECT করুন")
         return
@@ -1009,14 +1158,16 @@ def fetch_new_drafts(st, cfg, force=False):
             "id": did, "status": "pending", "created": iso(now_utc()), "updated": iso(now_utc()),
             "source": it["source"], "link": it["link"], "orig_title": it["title"],
             "headline": ai["headline"], "category": ai["category"], "body": ai["body"],
-            "caption": f"{ai['headline']}\n\n{cfg['caption_suffix']}",
+            "intro": ai.get("intro", ""), "hashtags": ai.get("hashtags", []),
             "image_url": image_url,
         }
+        d["caption"] = build_caption(d, cfg)
         st["drafts"][str(did)] = d
         try:
             img = render_card(d["headline"], d["category"], photo, cfg)
             send_draft(d, img, st)
             created += 1
+            st["daily"]["count"] += 1
             log(f"   ✅ ড্রাফট #{did} Telegram-এ গেছে")
         except Exception as ex:
             log("   ড্রাফট পাঠানো ব্যর্থ:", ex)
