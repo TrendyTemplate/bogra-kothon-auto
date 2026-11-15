@@ -1,5 +1,5 @@
 {
- "update_offset": 167819735,
+ "update_offset": 167819740,
  "next_id": 21,
  "last_fetch": "2026-11-15T01:50:57Z",
  "seen": [
@@ -565,9 +565,9 @@
   },
   "16": {
    "id": 16,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-15T01:31:41Z",
-   "updated": "2026-11-15T01:31:41Z",
+   "updated": "2026-11-15T05:39:11Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/international/497947",
    "orig_title": "ইসরায়েলের হামলায় হামাসের রাফাহ ব্রিগেডের কমান্ডার নিহত",
@@ -588,13 +588,15 @@
    "tg_msgs": [
     55,
     56
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131661553258652",
+   "fb_photo_id": "122131661529258652"
   },
   "17": {
    "id": 17,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-15T01:32:35Z",
-   "updated": "2026-11-15T01:32:35Z",
+   "updated": "2026-11-15T05:39:01Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/country/497945",
    "orig_title": "বিজয়নগরের লালমাটিতে কমলার বিপ্লব, বদলাচ্ছে কৃষকের ভাগ্য",
@@ -615,13 +617,15 @@
    "tg_msgs": [
     57,
     58
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131661457258652",
+   "fb_photo_id": "122131661433258652"
   },
   "18": {
    "id": 18,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-15T01:43:09Z",
-   "updated": "2026-11-15T01:43:09Z",
+   "updated": "2026-11-15T05:38:52Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/sports/497949",
    "orig_title": "রোনালদোর অবসরের পর প্রথম ম্যাচেই গোলবন্যায় ভাসল পর্তুগাল",
@@ -643,13 +647,15 @@
    "tg_msgs": [
     59,
     60
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131661349258652",
+   "fb_photo_id": "122131661325258652"
   },
   "19": {
    "id": 19,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-15T01:46:28Z",
-   "updated": "2026-11-15T01:46:28Z",
+   "updated": "2026-11-15T05:38:43Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/jobs-career/497950",
    "orig_title": "ওয়ালটনে নিয়োগ বিজ্ঞপ্তি, প্রভিডেন্ট ফান্ডসহ আছে বিমা সুবিধা",
@@ -671,13 +677,15 @@
    "tg_msgs": [
     61,
     62
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131661253258652",
+   "fb_photo_id": "122131661229258652"
   },
   "20": {
    "id": 20,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-15T01:52:59Z",
-   "updated": "2026-11-15T01:52:59Z",
+   "updated": "2026-11-15T05:38:35Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/international/497954",
    "orig_title": "নেতানিয়াহুর ঐক্য সরকার গঠনের আহ্বান ‘ধাপ্পাবাজি’, বললেন আইজেনকোট",
@@ -698,7 +706,9 @@
    "tg_msgs": [
     63,
     64
-   ]
+   ],
+   "fb_post_id": "987418104453641_122131661133258652",
+   "fb_photo_id": "122131661097258652"
   }
  },
  "msg_map": {
