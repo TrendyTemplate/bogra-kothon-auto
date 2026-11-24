@@ -1,5 +1,5 @@
 {
- "update_offset": 167819779,
+ "update_offset": 167819785,
  "next_id": 112,
  "last_fetch": "2026-11-24T01:40:50Z",
  "seen": [
@@ -1938,9 +1938,9 @@
   },
   "106": {
    "id": 106,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-24T01:21:04Z",
-   "updated": "2026-11-24T01:21:04Z",
+   "updated": "2026-11-24T03:00:13Z",
    "source": "প্রথম আলো",
    "link": "https://www.prothomalo.com/world/usa/xt23yq7624",
    "orig_title": "লোভনীয় বেতনে চাকরির বিজ্ঞাপনের আড়ালে যুক্তরাষ্ট্রের গোপন তথ্য বেহাত, কারা কীভাবে নিয়ে যাচ্ছে",
@@ -1962,13 +1962,15 @@
    "tg_msgs": [
     361,
     362
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132374071258652",
+   "fb_photo_id": "122132374047258652"
   },
   "107": {
    "id": 107,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-24T01:21:40Z",
-   "updated": "2026-11-24T01:21:40Z",
+   "updated": "2026-11-24T03:00:25Z",
    "source": "প্রথম আলো",
    "link": "https://www.bigganchinta.com/physics/5mjy4mucw0",
    "orig_title": "এত নক্ষত্র থাকতেও রাতের আকাশ কালো কেন",
@@ -1989,13 +1991,15 @@
    "tg_msgs": [
     363,
     364
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132374173258652",
+   "fb_photo_id": "122132374149258652"
   },
   "108": {
    "id": 108,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-24T01:31:01Z",
-   "updated": "2026-11-24T01:31:01Z",
+   "updated": "2026-11-24T03:00:36Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/technology/500371",
    "orig_title": "এনভিডিয়ায় ফিরলেন জেনসেন হুয়াং, স্বাগত জানালেন ইলন মাস্ক",
@@ -2012,13 +2016,15 @@
    "tg_msgs": [
     365,
     366
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132374239258652",
+   "fb_photo_id": "122132374215258652"
   },
   "109": {
    "id": 109,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-24T01:31:37Z",
-   "updated": "2026-11-24T01:31:37Z",
+   "updated": "2026-11-24T03:00:47Z",
    "source": "প্রথম আলো",
    "link": "https://www.prothomalo.com/education/b6zaadqhmz",
    "orig_title": "প্রাথমিকের গণিত বইয়েই শেখানো হোক পুষ্টির হিসাব",
@@ -2040,13 +2046,15 @@
    "tg_msgs": [
     367,
     368
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132374353258652",
+   "fb_photo_id": "122132374329258652"
   },
   "110": {
    "id": 110,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-24T01:41:50Z",
-   "updated": "2026-11-24T01:41:50Z",
+   "updated": "2026-11-24T03:00:57Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/national/500374",
    "orig_title": "চট্টগ্রামে আওয়ামী লীগ নেতা শেখ আতাউর রহমান গ্রেপ্তার",
@@ -2067,13 +2075,15 @@
    "tg_msgs": [
     369,
     370
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132374473258652",
+   "fb_photo_id": "122132374437258652"
   },
   "111": {
    "id": 111,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-24T01:42:33Z",
-   "updated": "2026-11-24T01:42:33Z",
+   "updated": "2026-11-24T03:01:14Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/international/500373",
    "orig_title": "গাজার খান ইউনিসে ইসরায়েলের ড্রোন হামলায় নিহত ৩",
@@ -2090,7 +2100,9 @@
    "tg_msgs": [
     371,
     372
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132374623258652",
+   "fb_photo_id": "122132374587258652"
   }
  },
  "msg_map": {
