@@ -1,5 +1,5 @@
 {
- "update_offset": 167819789,
+ "update_offset": 167819795,
  "next_id": 122,
  "last_fetch": "2026-11-25T01:40:45Z",
  "seen": [
@@ -2020,9 +2020,9 @@
   },
   "116": {
    "id": 116,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:24:33Z",
-   "updated": "2026-11-25T01:24:33Z",
+   "updated": "2026-11-25T06:44:14Z",
    "source": "প্রথম আলো",
    "link": "https://www.prothomalo.com/lifestyle/fashion/qwlhgpox7n",
    "orig_title": "গ্র্যান্ড ফিনালের আগে সুখবর, দর্শক ভোটে শীর্ষে মাহি",
@@ -2043,13 +2043,15 @@
    "tg_msgs": [
     401,
     402
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132472585258652",
+   "fb_photo_id": "122132472561258652"
   },
   "117": {
    "id": 117,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:26:29Z",
-   "updated": "2026-11-25T01:26:29Z",
+   "updated": "2026-11-25T06:44:23Z",
    "source": "প্রথম আলো",
    "link": "https://www.prothomalo.com/entertainment/drama/de8vwuztpw",
    "orig_title": "নরওয়ের পিয়ের, বাংলার পিয়ারু—কী বদলে গেল গল্পে",
@@ -2070,13 +2072,15 @@
    "tg_msgs": [
     403,
     404
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132472687258652",
+   "fb_photo_id": "122132472663258652"
   },
   "118": {
    "id": 118,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:31:34Z",
-   "updated": "2026-11-25T01:31:34Z",
+   "updated": "2026-11-25T06:44:32Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/country/500646",
    "orig_title": "সাভারে নাশকতার মামলায় সাবেক ইউপি সদস্য গ্রেপ্তার",
@@ -2097,13 +2101,15 @@
    "tg_msgs": [
     405,
     406
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132472759258652",
+   "fb_photo_id": "122132472735258652"
   },
   "119": {
    "id": 119,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:33:53Z",
-   "updated": "2026-11-25T01:33:53Z",
+   "updated": "2026-11-25T06:44:42Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/jobs-career/500644",
    "orig_title": "প্রোগ্রাম অফিসার নিয়োগ দেবে এসএমসি, দ্রুত আবেদন করুন",
@@ -2125,13 +2131,15 @@
    "tg_msgs": [
     407,
     408
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132472891258652",
+   "fb_photo_id": "122132472837258652"
   },
   "120": {
    "id": 120,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:41:30Z",
-   "updated": "2026-11-25T01:41:30Z",
+   "updated": "2026-11-25T06:44:50Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/entertainment/500648",
    "orig_title": "নতুন পরিচয়ে বিজয় সেতুপতি",
@@ -2152,13 +2160,15 @@
    "tg_msgs": [
     409,
     410
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132473053258652",
+   "fb_photo_id": "122132473029258652"
   },
   "121": {
    "id": 121,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:43:41Z",
-   "updated": "2026-11-25T01:43:41Z",
+   "updated": "2026-11-25T06:45:00Z",
    "source": "প্রথম আলো",
    "link": "https://www.bigganchinta.com/space/80o4zl9vab",
    "orig_title": "বুধে গ্রহে পৌঁছাল বেপিকলম্বো, ফাঁস হবে গ্রহের কেন্দ্রের রহস্য",
@@ -2179,7 +2189,9 @@
    "tg_msgs": [
     411,
     412
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132473191258652",
+   "fb_photo_id": "122132473167258652"
   }
  },
  "msg_map": {
