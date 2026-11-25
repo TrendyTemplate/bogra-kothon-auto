@@ -1,5 +1,5 @@
 {
- "update_offset": 167819785,
+ "update_offset": 167819789,
  "next_id": 122,
  "last_fetch": "2026-11-25T01:40:45Z",
  "seen": [
@@ -1903,9 +1903,9 @@
   },
   "112": {
    "id": 112,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:05:00Z",
-   "updated": "2026-11-25T01:05:00Z",
+   "updated": "2026-11-25T04:18:53Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/economy/500642",
    "orig_title": "পোশাকশ্রমিকদের নূন্যতম মজুরি ১৭ হাজার টাকা",
@@ -1926,13 +1926,15 @@
    "tg_msgs": [
     393,
     394
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132464839258652",
+   "fb_photo_id": "122132464815258652"
   },
   "113": {
    "id": 113,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:05:49Z",
-   "updated": "2026-11-25T01:05:49Z",
+   "updated": "2026-11-25T04:19:03Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/country/500641",
    "orig_title": "যশোরে ২৭ নভেম্বর থেকে তিন দিনব্যাপী জেলা ইজতেমা",
@@ -1953,13 +1955,15 @@
    "tg_msgs": [
     395,
     396
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132464929258652",
+   "fb_photo_id": "122132464887258652"
   },
   "114": {
    "id": 114,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:13:37Z",
-   "updated": "2026-11-25T01:13:37Z",
+   "updated": "2026-11-25T04:19:13Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/national/500643",
    "orig_title": "রংপুর পলিটেকনিক ইনস্টিটিউটে অধ্যক্ষের পদত্যাগ নিয়ে উত্তপ্ত ক্যাম্পাস",
@@ -1981,13 +1985,15 @@
    "tg_msgs": [
     397,
     398
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132465007258652",
+   "fb_photo_id": "122132464971258652"
   },
   "115": {
    "id": 115,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-25T01:18:22Z",
-   "updated": "2026-11-25T01:18:22Z",
+   "updated": "2026-11-25T04:19:35Z",
    "source": "প্রথম আলো",
    "link": "https://www.kishoralo.com/feature/9f5nt6s2m7",
    "orig_title": "টাকা জমানোর উপায় কী",
@@ -2008,7 +2014,9 @@
    "tg_msgs": [
     399,
     400
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132465157258652",
+   "fb_photo_id": "122132465127258652"
   },
   "116": {
    "id": 116,
