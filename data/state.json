@@ -1,5 +1,5 @@
 {
- "update_offset": 167819795,
+ "update_offset": 167819801,
  "next_id": 133,
  "last_fetch": "2026-11-26T01:40:40Z",
  "seen": [
@@ -2109,9 +2109,9 @@
   },
   "126": {
    "id": 126,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-26T01:21:32Z",
-   "updated": "2026-11-26T01:21:32Z",
+   "updated": "2026-11-26T06:18:51Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/country/500913",
    "orig_title": "প্রেমের টানে ভারত থেকে বরিশালে তরুণ, নোটারির মাধ্যমে বিয়ে",
@@ -2133,7 +2133,9 @@
    "tg_msgs": [
     441,
     442
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132565705258652",
+   "fb_photo_id": "122132565681258652"
   },
   "127": {
    "id": 127,
@@ -2159,9 +2161,9 @@
   },
   "128": {
    "id": 128,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-26T01:25:19Z",
-   "updated": "2026-11-26T01:25:19Z",
+   "updated": "2026-11-26T06:18:41Z",
    "source": "প্রথম আলো",
    "link": "https://www.bigganchinta.com/biology/6kc5pqyv46",
    "orig_title": "মশার কামড়ে পোষা প্রাণী থেকে মানুষের শরীরে ছড়াচ্ছে পরজীবী",
@@ -2183,13 +2185,15 @@
    "tg_msgs": [
     443,
     444
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132565567258652",
+   "fb_photo_id": "122132565543258652"
   },
   "129": {
    "id": 129,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-26T01:31:24Z",
-   "updated": "2026-11-26T01:31:24Z",
+   "updated": "2026-11-26T06:18:30Z",
    "source": "প্রথম আলো",
    "link": "https://www.prothomalo.com/bangladesh/ap6007783m",
    "orig_title": "বিশেষায়িত পাঁচ শিশু হাসপাতাল অবশেষে ডিসেম্বরে চালু হচ্ছে",
@@ -2210,13 +2214,15 @@
    "tg_msgs": [
     445,
     446
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132565465258652",
+   "fb_photo_id": "122132565441258652"
   },
   "130": {
    "id": 130,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-26T01:32:23Z",
-   "updated": "2026-11-26T01:32:23Z",
+   "updated": "2026-11-26T06:18:20Z",
    "source": "প্রথম আলো",
    "link": "https://www.haal.fashion/travel/tourism/6chrz7jp2w",
    "orig_title": "গন্তব্য নয়, শখের টানেই ভ্রমণ: ২০২৭-এর নতুন ট্রেন্ড ‘হবি হাবস’",
@@ -2237,13 +2243,15 @@
    "tg_msgs": [
     447,
     448
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132565339258652",
+   "fb_photo_id": "122132565309258652"
   },
   "131": {
    "id": 131,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-26T01:43:34Z",
-   "updated": "2026-11-26T01:43:34Z",
+   "updated": "2026-11-26T06:18:10Z",
    "source": "ঢাকা পোস্ট",
    "link": "https://www.dhakapost.com/jobs-career/500916",
    "orig_title": "ন্যাশনাল ব্যাংকে চাকরি, আবেদন শেষ ৩০ নভেম্বর",
@@ -2265,13 +2273,15 @@
    "tg_msgs": [
     449,
     450
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132565231258652",
+   "fb_photo_id": "122132565207258652"
   },
   "132": {
    "id": 132,
-   "status": "pending",
+   "status": "posted",
    "created": "2026-11-26T01:44:30Z",
-   "updated": "2026-11-26T01:44:30Z",
+   "updated": "2026-11-26T06:18:00Z",
    "source": "বিবিসি বাংলা",
    "link": "https://www.bbc.com/bengali/articles/cq1j6wen2173o?at_medium=RSS&at_campaign=rss",
    "orig_title": "গোপালগঞ্জে থানা, ট্রেন, সরকারি বরাদ্দ নিয়ে কী হচ্ছে?",
@@ -2292,7 +2302,9 @@
    "tg_msgs": [
     451,
     452
-   ]
+   ],
+   "fb_post_id": "987418104453641_122132565141258652",
+   "fb_photo_id": "122132565117258652"
   }
  },
  "msg_map": {
